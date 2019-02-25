@@ -1,7 +1,9 @@
+mod mainmenu;
 mod pong;
 mod systems;
 extern crate amethyst;
 
+use crate::mainmenu::MainMenu;
 use crate::pong::Pong;
 use amethyst::core::transform::TransformBundle;
 use amethyst::input::InputBundle;
@@ -31,7 +33,7 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
-        .with(systems::MoveBallsSystem, "ball_system", &[])
+        .with(systems::MoveBallsSystem::default(), "ball_system", &[])
         .with(
             systems::BounceSystem,
             "collision_system",

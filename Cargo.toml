@@ -4,5 +4,8 @@ version = "0.1.0"
 authors = []
 edition = "2018"
 
+[features]
+nightly = ["amethyst/nightly"]
+
 [dependencies]
 amethyst = "0.10.0"
