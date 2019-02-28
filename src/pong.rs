@@ -1,7 +1,7 @@
+use crate::mainmenu::MainMenu;
 use amethyst::{
     assets::{AssetStorage, Loader},
     core::transform::Transform,
-    shrev::EventChannel,
     ecs::prelude::{Component, DenseVecStorage, Entity},
     input::is_key_down,
     prelude::*,
@@ -9,9 +9,9 @@ use amethyst::{
         Camera, Flipped, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat,
         SpriteSheetHandle, Texture, TextureMetadata, VirtualKeyCode,
     },
+    shrev::EventChannel,
     ui::{Anchor, TtfFormat, UiText, UiTransform},
 };
-use crate::mainmenu::MainMenu;
 
 pub const ARENA_HEIGHT: f32 = 100.0;
 pub const ARENA_WIDTH: f32 = 100.0;
@@ -32,7 +32,7 @@ pub struct ScoreText {
     pub p2_score: Entity,
 }
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Debug)]
 pub enum WinEvent {
     ResetBall,
 }

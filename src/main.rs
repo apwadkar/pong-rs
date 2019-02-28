@@ -4,12 +4,13 @@ mod systems;
 extern crate amethyst;
 
 use crate::mainmenu::MainMenu;
-use crate::pong::Pong;
-use amethyst::core::transform::TransformBundle;
-use amethyst::input::InputBundle;
-use amethyst::prelude::*;
-use amethyst::renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage};
-use amethyst::ui::{DrawUi, UiBundle};
+use amethyst::{
+    core::transform::TransformBundle,
+    input::InputBundle,
+    prelude::*,
+    renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage},
+    ui::{DrawUi, UiBundle},
+};
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -40,7 +41,7 @@ fn main() -> amethyst::Result<()> {
             &["paddle_system", "ball_system"],
         )
         .with(systems::WinnerSystem, "winner_system", &["ball_system"]);
-    let mut game = Application::new("./", Pong, game_data)?;
+    let mut game = Application::new("./", MainMenu, game_data)?;
     game.run();
 
     Ok(())

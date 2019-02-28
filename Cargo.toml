@@ -5,7 +5,17 @@ authors = []
 edition = "2018"
 
 [features]
-nightly = ["amethyst/nightly"]
+profiler = [
+    "amethyst/profiler",
+]
+nightly = [
+    "amethyst/nightly",
+]
+sdl_controller = [
+    "amethyst/sdl_controller",
+]
+debug = []
+trace = []
 
 [dependencies]
 amethyst = "0.10.0"

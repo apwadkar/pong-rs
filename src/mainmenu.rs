@@ -1,10 +1,10 @@
-use crate::pong::{Pong, initialize_camera};
+use crate::pong::{initialize_camera, Pong};
 use amethyst::{
     assets::Loader,
     input::is_key_down,
     prelude::*,
     renderer::VirtualKeyCode,
-    ui::{Anchor, TtfFormat, UiButtonBuilder, UiTransform, UiEvent, UiEventType},
+    ui::{Anchor, TtfFormat, UiButtonBuilder, UiEventType},
 };
 
 fn initialize_menu(world: &mut World) {
@@ -47,14 +47,14 @@ impl SimpleState for MainMenu {
                 } else {
                     Trans::None
                 }
-            },
+            }
             StateEvent::Ui(ui_event) => {
                 if ui_event.event_type == UiEventType::Click {
                     Trans::Switch(Box::new(Pong))
                 } else {
                     Trans::None
                 }
-            },
+            }
         }
     }
 
