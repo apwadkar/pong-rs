@@ -5,12 +5,12 @@ extern crate amethyst;
 
 use crate::mainmenu::MainMenu;
 use amethyst::{
-    {LoggerConfig, LogLevelFilter},
     core::transform::TransformBundle,
     input::InputBundle,
     prelude::*,
     renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage},
     ui::{DrawUi, UiBundle},
+    {LogLevelFilter, LoggerConfig},
 };
 
 fn main() -> amethyst::Result<()> {

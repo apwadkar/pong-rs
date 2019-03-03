@@ -7,7 +7,6 @@ use amethyst::{
     ecs::prelude::*,
     shrev::{EventChannel, ReaderId},
 };
-use std::time::Duration;
 
 pub struct MoveBallsSystem {
     pub is_reset: bool,
