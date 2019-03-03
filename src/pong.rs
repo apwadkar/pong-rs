@@ -9,7 +9,6 @@ use amethyst::{
         Camera, Flipped, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat,
         SpriteSheetHandle, Texture, TextureMetadata, VirtualKeyCode,
     },
-    shrev::EventChannel,
     ui::{Anchor, TtfFormat, UiText, UiTransform},
 };
 
@@ -33,7 +32,7 @@ pub struct ScoreText {
 }
 
 #[derive(PartialEq, Eq, Debug)]
-pub enum WinEvent {
+pub enum MyEvent {
     ResetBall,
 }
 
@@ -218,7 +217,6 @@ impl SimpleState for Pong {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let world = data.world;
         let sprite_sheet_handle = load_sprite_sheet(world);
-        world.add_resource(EventChannel::<WinEvent>::new());
 
         initialize_camera(world);
         initialize_ball(world, sprite_sheet_handle.clone());
@@ -233,7 +231,6 @@ impl SimpleState for Pong {
     ) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
             if is_key_down(&event, VirtualKeyCode::Escape) {
-                // return Trans::Pop;
                 return Trans::Switch(Box::new(MainMenu));
             }
         }

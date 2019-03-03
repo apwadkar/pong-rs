@@ -5,6 +5,7 @@ extern crate amethyst;
 
 use crate::mainmenu::MainMenu;
 use amethyst::{
+    {LoggerConfig, LogLevelFilter},
     core::transform::TransformBundle,
     input::InputBundle,
     prelude::*,
@@ -13,7 +14,9 @@ use amethyst::{
 };
 
 fn main() -> amethyst::Result<()> {
-    amethyst::start_logger(Default::default());
+    let mut conf = LoggerConfig::default();
+    conf.level_filter = LogLevelFilter::Warn;
+    amethyst::start_logger(conf);
 
     let path = "resources/display_config.ron";
     let config = DisplayConfig::load(&path);

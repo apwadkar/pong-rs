@@ -1,10 +1,5 @@
-use crate::pong::{Ball, ScoreBoard, ScoreText, WinEvent, ARENA_WIDTH};
-use amethyst::{
-    core::transform::Transform,
-    ecs::prelude::{Join, ReadExpect, System, Write, WriteStorage},
-    shrev::EventChannel,
-    ui::UiText,
-};
+use crate::pong::{Ball, ScoreBoard, ScoreText, MyEvent, ARENA_WIDTH};
+use amethyst::{core::transform::Transform, ecs::prelude::*, shrev::EventChannel, ui::UiText};
 
 pub struct WinnerSystem;
 
@@ -13,18 +8,16 @@ impl<'s> System<'s> for WinnerSystem {
         WriteStorage<'s, Ball>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, UiText>,
-        Option<Write<'s, ScoreBoard>>,
-        Option<ReadExpect<'s, ScoreText>>,
-        Option<Write<'s, EventChannel<WinEvent>>>,
+        Write<'s, ScoreBoard>,
+        Option<Read<'s, ScoreText>>,
+        Write<'s, EventChannel<MyEvent>>,
     );
 
     fn run(
         &mut self,
-        (mut balls, mut locals, mut ui_text, scores, score_text, event_channel): Self::SystemData,
+        (mut balls, mut locals, mut ui_text, mut scores, score_text, mut event_channel): Self::SystemData,
     ) {
-        if let (Some(mut scores), Some(score_text), Some(mut event_channel)) =
-            (scores, score_text, event_channel)
-        {
+        if let Some(score_text) = score_text {
             for (ball, transform) in (&mut balls, &mut locals).join() {
                 let ball_x = transform.translation().x;
 
@@ -47,7 +40,7 @@ impl<'s> System<'s> for WinnerSystem {
                 };
 
                 if did_hit {
-                    event_channel.single_write(WinEvent::ResetBall);
+                    event_channel.single_write(MyEvent::ResetBall);
                     ball.velocity[0] = -ball.velocity[0];
                     transform.set_x(ARENA_WIDTH / 2.0);
 
@@ -57,6 +50,6 @@ impl<'s> System<'s> for WinnerSystem {
                     );
                 }
             }
-        }
+        }   
     }
 }
