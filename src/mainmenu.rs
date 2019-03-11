@@ -16,12 +16,34 @@ fn initialize_menu(world: &mut World) {
         &world.read_resource(),
     );
 
-    UiButtonBuilder::new("play_button".to_string(), "Play".to_string())
-        .with_font(font)
+    UiButtonBuilder::new("play_button".to_string(), "Play Co-op".to_string())
+        .with_font(font.clone())
         .with_font_size(30.)
         .with_text_color([1., 1., 1., 1.])
         .with_hover_text_color([1., 0., 0., 1.])
         .with_anchor(Anchor::Middle)
+        .with_position(0., 0.)
+        .with_layer(1.)
+        .with_size(150., 50.)
+        .build_from_world(world);
+    
+    UiButtonBuilder::new("playai_button".to_string(), "Play AI".to_string())
+        .with_font(font.clone())
+        .with_font_size(30.)
+        .with_text_color([1., 1., 1., 1.])
+        .with_hover_text_color([1., 0., 0., 1.])
+        .with_anchor(Anchor::TopMiddle)
+        .with_position(0., 0.)
+        .with_layer(1.)
+        .with_size(150., 50.)
+        .build_from_world(world);
+
+    UiButtonBuilder::new("playnet_button".to_string(), "Play Online".to_string())
+        .with_font(font)
+        .with_font_size(30.)
+        .with_text_color([1., 1., 1., 1.])
+        .with_hover_text_color([1., 0., 0., 1.])
+        .with_anchor(Anchor::BottomMiddle)
         .with_position(0., 0.)
         .with_layer(1.)
         .with_size(150., 50.)
@@ -37,7 +59,7 @@ impl SimpleState for MainMenu {
         initialize_menu(world);
     }
 
-    fn handle_event(&mut self, _data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
+    fn handle_event(&mut self, data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
         match &event {
             StateEvent::Window(wnd_event) => {
                 if is_key_down(&wnd_event, VirtualKeyCode::P) {
@@ -50,6 +72,7 @@ impl SimpleState for MainMenu {
             }
             StateEvent::Ui(ui_event) => {
                 if ui_event.event_type == UiEventType::Click {
+                    
                     Trans::Switch(Box::new(Pong))
                 } else {
                     Trans::None
